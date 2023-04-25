@@ -42,4 +42,7 @@ class UserController extends Controller
             }
 
         }
+    public function index(Request $request) {
+        return $this->susscesResponse(User::findById($request->user()->id));
+    }
 }

@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\TopicController;
+use App\Http\Controllers\API\PostController;
+use App\Http\Controllers\API\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,7 +20,29 @@ use App\Http\Controllers\API\UserController;
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
 
+Route::resource('topics', TopicController::class)->except(
+    ['store', 'edit', 'destroy', 'update']
+);
+Route::resource('category', CategoryController::class)->except(
+    ['store', 'edit', 'destroy', 'update']
+);
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::resource('posts', CategoryController::class)->except(
+    ['store', 'edit', 'destroy', 'update']
+);
+
+
+Route::middleware('auth:api')->group(function () {
+
+    Route::get('user', [UserController::class, 'index']);
+
+    Route::resource('topics', TopicController::class)->except(
+        ['index', 'show']
+    );
+    Route::resource('category', CategoryController::class)->except(
+        ['index', 'show']
+    );
+    Route::resource('posts', PostController::class)->except(
+        ['index', 'show']
+    );
 });
