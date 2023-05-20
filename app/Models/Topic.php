@@ -47,4 +47,13 @@ class Topic extends Model
         }
         return $topic;
     }
+    public function scopeLastActivity()
+    {
+        $posts = Post::getLasted(5);
+        $topics = [];
+        foreach ($posts as $value) {
+           $topics[] = $value->topic;
+        }
+        return $topics;
+    }
 }

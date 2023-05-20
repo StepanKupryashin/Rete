@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return $this->susscesResponse(Post::getLasted());
+        return $this->susscesResponse(Post::getLasted(5));
     }
 
 

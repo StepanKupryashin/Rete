@@ -90,4 +90,9 @@ class TopicController extends Controller
 
         $this->susscesResponse(['sucess' => true, 'message' => 'topic removed successfully!']);
     }
+
+    public function getLastActivity()
+    {
+        return $this->susscesResponse(Topic::lastActivity());
+    }
 }

@@ -19,7 +19,9 @@ use App\Http\Controllers\API\CategoryController;
 
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
+Route::get('user/{id}', [UserController::class, 'getUser']);
 
+Route::get('topics/lasted_activity', [TopicController::class, 'getLastActivity']);
 Route::resource('topics', TopicController::class)->except(
     ['store', 'edit', 'destroy', 'update']
 );
@@ -27,7 +29,7 @@ Route::resource('category', CategoryController::class)->except(
     ['store', 'edit', 'destroy', 'update']
 );
 
-Route::resource('posts', CategoryController::class)->except(
+Route::resource('posts', PostController::class)->except(
     ['store', 'edit', 'destroy', 'update']
 );
 
@@ -35,6 +37,7 @@ Route::resource('posts', CategoryController::class)->except(
 Route::middleware('auth:api')->group(function () {
 
     Route::get('user', [UserController::class, 'index']);
+
 
     Route::resource('topics', TopicController::class)->except(
         ['index', 'show']

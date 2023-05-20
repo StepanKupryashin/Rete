@@ -25,7 +25,12 @@ class Category extends Model
 
         foreach ($data as $value) {
             $value->topics;
+            foreach($value->topics as $t) {
+                $t->author;
+                $t->posts;
+            }
         }
+
         return $data;
     }
 

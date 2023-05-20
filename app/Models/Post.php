@@ -19,8 +19,13 @@ class Post extends Model
         return $this->hasOne(User::class, 'id', 'author_id');
     }
 
-    static function getLasted() {
-        return Post::orderBy('updated_at','DESC')->limit(2)->get();
+    static function getLasted(int $num) {
+        $data = Post::orderBy('updated_at','DESC')->limit($num)->get();
+        foreach ($data as $value) {
+            $value->author;
+            $value->topic;
+        }
+        return $data;
     }
 
     static function findById(int $id) {

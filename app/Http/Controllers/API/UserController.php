@@ -26,23 +26,29 @@ class UserController extends Controller
         return $this->susscesResponse($data);
     }
 
-    public function login(Request $request) {
-        if (Auth::attempt(['name' => $request->get('login'), 'password' => $request->get('password')])) { 
+    public function login(Request $request)
+    {
+        if (Auth::attempt(['name' => $request->get('login'), 'password' => $request->get('password')])) {
 
-                $user = Auth::user();
-                $data = [
-                    'user' => $user,
-                    'token' => $user->createToken('User Token')->accessToken
-                ];
-    
-                return $this->susscesResponse($data);
-            }
-            else {
-                return $this->failResponse('Login failed or user not found');
-            }
+            $user = Auth::user();
+            $data = [
+                'user' => $user,
+                'token' => $user->createToken('User Token')->accessToken
+            ];
 
+            return $this->susscesResponse($data);
+        } else {
+            return $this->failResponse('Login failed or user not found');
         }
-    public function index(Request $request) {
+
+    }
+    public function index(Request $request)
+    {
         return $this->susscesResponse(User::findById($request->user()->id));
+    }
+
+    public function getUser(Request $request, $id)
+    {
+        return $this->susscesResponse(User::findById($id));
     }
 }
