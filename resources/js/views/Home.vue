@@ -1,8 +1,8 @@
 <template>
     <div>
-        <h1 class="gray">Домашняя страница</h1>
-        <last-topic-activity v-if="lastTopicActivity" :data="lastTopicActivity"></last-topic-activity>
-        <last-post-activity v-if="dataLastPostActivity" :data="dataLastPostActivity"></last-post-activity>
+        <h1 class="gray mt-5">Домашняя страница</h1>
+        <last-topic-activity class="mt-2" v-if="lastTopicActivity" :data="lastTopicActivity"></last-topic-activity>
+        <last-post-activity class="mt-2" v-if="dataLastPostActivity" :data="dataLastPostActivity"></last-post-activity>
     </div>
 </template>
 <script>

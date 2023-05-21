@@ -31,9 +31,11 @@
                 class="rounded-lg border shadow p-2"
             ></textarea>
             <button
+                @click="sendPost"
                 class="left-[70%] relative w-[7rem] rounded-lg bg-blue-500/90 p-2 mt-2 text-white font-medium"
             >
-                Написать
+                <span v-if="!isSendPost">Написать</span>
+                <span v-else>Отправлено</span>
             </button>
         </div>
         <h2 class="text-center text-xl font-bold">Посты</h2>
@@ -46,12 +48,13 @@
                 <div
                     class="flex flex-col bg-blue-600/80 mt-2 rounded-lg p-4 w-1/2 text-white font-semibold"
                 >
-                <span>Автор: {{p.author.name}}</span>
-                <p>
+                    <span>Автор: {{ p.author.name }}</span>
+                    <p class="break-all mb-2">
                         {{ p.message }}
                     </p>
                     <div class="relative text-right">
-                        Отправлено в {{ new Date(p.created_at).toLocaleDateString() }}
+                        Отправлено в
+                        {{ new Date(p.created_at).toLocaleDateString() }}
                     </div>
                 </div>
             </div>
@@ -65,20 +68,46 @@ export default {
         topic: null,
         isAuth: false,
         newPost: "",
+        isSendPost: false,
     }),
     methods: {
-        sendPost: () => {
+        sendPost: async function () {
+            const response = await axios.post(
+                "/api/posts/",
+                {
+                    message: this.newPost,
+                    topic_id: this.topic.id,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem(
+                            "access_token"
+                        )}`,
+                    },
+                }
+            );
+            this.newPost = "";
+            if (response.data.success) {
+                this.isSendPost = !this.isSendPost;
+                setTimeout(() => {
+                    this.fetchTopic();
+                    this.isSendPost = false;
+                }, 2000);
+            }
 
-        }
-    },
-    async mounted() {
-        if (this.$route.params.id !== undefined) {
+        },
+        fetchTopic: async function () {
             const topicResponse = await axios.get(
                 "/api/topics/" + this.$route.params.id
             );
             if (topicResponse.data.success) {
                 this.topic = topicResponse.data.response;
             }
+        },
+    },
+    async mounted() {
+        if (this.$route.params.id !== undefined) {
+            this.fetchTopic();
         }
         this.isAuth = localStorage.getItem("isAuth");
     },

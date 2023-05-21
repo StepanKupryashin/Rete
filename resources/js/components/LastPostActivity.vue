@@ -23,13 +23,13 @@
                     :data="tr"
                   >
                     <vs-td>
-                      {{ tr.message }}
+                      {{ tr.message.slice(0, 40) }}...
                     </vs-td>
                     <vs-td>
                      <a :href="'/topic/' + tr.topic.id">{{ tr.topic.title }}</a>
                     </vs-td>
                     <vs-td>
-                      <a :href="'/user/' + tr.author.id">{{tr.author.name}}</a>
+                      <a :href="'/profile/' + tr.author.id">{{tr.author.name}}</a>
                     </vs-td>
                   </vs-tr>
                 </template>
