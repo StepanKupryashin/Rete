@@ -42,6 +42,7 @@ class Topic extends Model
     {
         $topic = Topic::find($id);
         $topic->category;
+        $topic->author;
         foreach ($topic->posts as $post) {
             $post->author;
         }
