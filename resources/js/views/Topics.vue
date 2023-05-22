@@ -89,7 +89,7 @@ export default {
     methods: {
         createTopic: async function () {
             const response = await axios.post(
-                "/api/topics/",
+                "/api/topics",
                 {
                     title: this.topicName,
                     description: this.topicDescription,
@@ -124,7 +124,7 @@ export default {
             this.activeModal = !this.activeModal;
         },
         fetchCategory: async function () {
-            const dataResponse = await axios.get("/api/category/");
+            const dataResponse = await axios.get("/api/category");
             console.log(dataResponse);
             if (dataResponse.data.success) {
                 this.data = dataResponse.data.response;

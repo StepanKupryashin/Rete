@@ -73,7 +73,7 @@ export default {
     methods: {
         sendPost: async function () {
             const response = await axios.post(
-                "/api/posts/",
+                "/api/posts",
                 {
                     message: this.newPost,
                     topic_id: this.topic.id,

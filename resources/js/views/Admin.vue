@@ -178,7 +178,7 @@ export default {
         async createCategory() {
             this.isFetch = true;
             const response = await axios.post(
-                "/api/category/",
+                "/api/category",
                 {
                     name: this.categoryName,
                     description: this.categoryDescription,

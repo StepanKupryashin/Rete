@@ -33,7 +33,7 @@ export default {
 
     async mounted() {
         if (this.$route.params.id == undefined) {
-            const profileResponse = await axios.get("/api/user/", {
+            const profileResponse = await axios.get("/api/user", {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem(
                         "access_token"
