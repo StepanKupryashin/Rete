@@ -3,7 +3,14 @@ import Authorization from './views/Authorization.vue';
 import Topic from './views/Topic.vue';
 import Topics from './views/Topics.vue';
 import Profile from './views/Profile.vue';
+import Admin from './views/Admin.vue';
 /* import Tasks from './views/Tasks.vue'; */
+
+
+const checkAdmin = (to, from, next) => {
+    if(!localStorage.getItem('is_admin')) next('/');
+    next();
+}
 
 export const routes = [
     {
@@ -35,5 +42,11 @@ export const routes = [
         name: 'profile_user',
         path: '/profile/:id',
         component: Profile
+    },
+    {
+        name: 'admin',
+        path: '/admin',
+        component: Admin,
+        beforeEnter: checkAdmin
     }
 ];

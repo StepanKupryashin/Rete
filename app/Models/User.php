@@ -42,19 +42,47 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function posts() {
+    public function posts()
+    {
         return $this->hasMany(Post::class, 'author_id', 'id');
     }
 
-    public function topics() {
+    public function topics()
+    {
         return $this->hasMany(Topic::class, 'author_id', 'id');
     }
 
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_users', 'user_id', 'id');
+    }
 
-    static function findById(int $id) {
+
+    static function findById(int $id)
+    {
         $user = User::find($id);
         $user->posts;
         $user->topics;
+        if ($user->roles->where('name', 'Админ')->isEmpty()) {
+            $user->is_admin = false;
+        } else {
+            $user->is_admin = true;
+        }
         return $user;
+    }
+
+    public function scopeUsers()
+    {
+        $users = User::all();
+        foreach ($users as $user) {
+            $user->posts;
+            $user->topics;
+            if ($user->roles->where('name', 'Админ')->isEmpty()) {
+                $user->is_admin = false;
+            } else {
+                $user->is_admin = true;
+            }
+        }
+        return $users;
     }
 }

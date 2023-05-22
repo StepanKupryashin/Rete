@@ -36,6 +36,7 @@ Route::resource('posts', PostController::class)->except(
 
 Route::middleware('auth:api')->group(function () {
 
+
     Route::get('user', [UserController::class, 'index']);
 
 
@@ -48,4 +49,11 @@ Route::middleware('auth:api')->group(function () {
     Route::resource('posts', PostController::class)->except(
         ['index', 'show']
     );
+
+    Route::middleware('isAdmin')->group(function () {
+
+        Route::get('admin/users', [UserController::class, 'getUsers']);
+
+    });
+
 });

@@ -32,7 +32,7 @@ class UserController extends Controller
 
             $user = Auth::user();
             $data = [
-                'user' => $user,
+                'user' => User::findById($user->id),
                 'token' => $user->createToken('User Token')->accessToken
             ];
 
@@ -50,5 +50,10 @@ class UserController extends Controller
     public function getUser(Request $request, $id)
     {
         return $this->susscesResponse(User::findById($id));
+    }
+
+    public function getUsers(Request $request)
+    {
+        return $this->susscesResponse(User::users());
     }
 }

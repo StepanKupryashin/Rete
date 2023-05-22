@@ -56,6 +56,17 @@
                     Топики
                 </span>
             </vs-sidebar-item>
+            <vs-sidebar-item id="AdminPanel">
+                <template #icon>
+                    <i class='bx bxs-music'></i>
+                </template>
+                <span v-if="isAdmin" @click="() => {
+                        activeSidebar = false
+                        $router.push({ path: '/admin' })
+                    }">
+                    Админ панель
+                </span>
+            </vs-sidebar-item>
 
 
             <template #footer>
@@ -65,6 +76,7 @@
                             alt="">
                     </vs-avatar>
                 </vs-row>
+
             </template>
         </vs-sidebar>
     </div>
@@ -75,6 +87,7 @@ export default {
         active: "guide",
         activeSidebar: false,
         isAuth: false,
+        isAdmin: false,
     }),
     methods: {
         checkAuth() {
@@ -83,6 +96,7 @@ export default {
         logout() {
             localStorage.removeItem('isAuth');
             localStorage.removeItem('access_token');
+            localStorage.removeItem('is_admin');
             window.location = "/";
         },
     },
@@ -90,6 +104,9 @@ export default {
         console.log('Component mounted.')
         if (localStorage.getItem('isAuth')) {
             this.isAuth = true;
+        }
+        if(localStorage.getItem('is_admin')) {
+            this.isAdmin = true;
         }
     }
 }

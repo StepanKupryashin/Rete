@@ -49,11 +49,14 @@ export default {
         login: this.login,
         password: this.password
       });
+      console.log(response);
       if (response.data.success) {
 
         localStorage.setItem('access_token', response.data.response.token);
 
         localStorage.setItem('isAuth', true);
+
+        localStorage.setItem('is_admin', response.data.response.user.is_admin);
 
         /* this.$router.push({ path: '/' }); */
         window.location = "/";
