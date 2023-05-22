@@ -34,6 +34,7 @@ class Topic extends Model
         foreach ($data as $d) {
             $d->category;
             $d->author;
+            $d->posts;
         }
         return $data;
     }

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="w-[80vw]  relative">
         <div class="top-topics">
             <h2>Последняя активность топиков:</h2>
             <vs-table v-if="data" :data="data" :items="data">

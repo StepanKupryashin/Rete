@@ -1,8 +1,8 @@
 <template>
     <div class="flex flex-col w-full">
-        <h1 class="text-center mt-2">Профиль</h1>
+        <h1 class="text-center mt-5">Профиль</h1>
         <div
-            class="bg-gray-300/50 flex flex-col w-[50%] mt-2 justify-center items-center rounded-lg p-4 ml-2 self-center"
+            class="bg-gray-300/50 flex flex-col w-[80vw] mt-2 justify-center items-center rounded-lg p-4 ml-2 self-center"
         >
             <span
                 >Имя пользователя: <b>{{ user.name }}</b></span

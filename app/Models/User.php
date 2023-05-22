@@ -82,7 +82,18 @@ class User extends Authenticatable
             } else {
                 $user->is_admin = true;
             }
+            if(auth()->id() == $user->id) {
+                $user->current_user = true;
+             }
         }
         return $users;
+    }
+
+    static function deleteUser(int $id) {
+        Topic::where('author_id', $id)->delete();
+        User::find($id)->delete();
+        return [
+            'message' => 'Пользователь успешно удален)'
+        ];
     }
 }

@@ -4,11 +4,12 @@ import Topic from './views/Topic.vue';
 import Topics from './views/Topics.vue';
 import Profile from './views/Profile.vue';
 import Admin from './views/Admin.vue';
+import Register from './views/Register.vue';
 /* import Tasks from './views/Tasks.vue'; */
 
 
 const checkAdmin = (to, from, next) => {
-    if(!localStorage.getItem('is_admin')) next('/');
+    if(localStorage.getItem('is_admin') != 'true') next('/');
     next();
 }
 
@@ -48,5 +49,10 @@ export const routes = [
         path: '/admin',
         component: Admin,
         beforeEnter: checkAdmin
+    },
+    {
+        name: 'register',
+        path: '/register',
+        component: Register
     }
 ];

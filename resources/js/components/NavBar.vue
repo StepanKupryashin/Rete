@@ -8,7 +8,7 @@
                     </i>
                 </vs-button>
             </template>
-            <h3>Rete | Интернет форум</h3>
+            <h3>Rete</h3>
 
             <template #right>
                 <vs-button v-if="!checkAuth()" @click="$router.push({ path: '/login' })" flat>Login</vs-button>
@@ -105,7 +105,7 @@ export default {
         if (localStorage.getItem('isAuth')) {
             this.isAuth = true;
         }
-        if(localStorage.getItem('is_admin')) {
+        if(localStorage.getItem('is_admin') == 'true') {
             this.isAdmin = true;
         }
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\TopicController;
 use App\Http\Controllers\API\PostController;
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\AdminController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -52,8 +53,10 @@ Route::middleware('auth:api')->group(function () {
 
     Route::middleware('isAdmin')->group(function () {
 
-        Route::get('admin/users', [UserController::class, 'getUsers']);
+        Route::get('admin/main', [AdminController::class, 'index']);
 
+        Route::delete('admin/user/{id}', [AdminController::class, 'deleteUser']);
+        Route::post('admin/topics/link_category', [AdminController::class, 'linkTopicCategory']);
     });
 
 });

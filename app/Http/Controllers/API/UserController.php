@@ -17,10 +17,9 @@ class UserController extends Controller
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
         ]);
-        $token = $user->createToken('Access Token')->accessToken;
         $data = [
-            $user,
-            'access_token' => $token,
+            'user' => User::findById($user->id),
+            'token' => $user->createToken('User Token')->accessToken
         ];
 
         return $this->susscesResponse($data);
